@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace CodingTracker.Model
 {
-    internal class CodingSession
+    public class CodingSession
     {
+        private int Id;
+        private DateTime StartTime;
+        private DateTime EndTime;
+        private TimeSpan Duration { 
+            get 
+            { 
+                return EndTime - StartTime; 
+            } 
+        }
+
+        public CodingSession(int id, DateTime startTime, DateTime endTime)
+        {
+            Id = id;
+            StartTime = startTime;
+            EndTime = endTime;
+            
+        }
+
     }
 }
