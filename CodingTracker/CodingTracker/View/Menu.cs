@@ -8,6 +8,6 @@ namespace CodingTracker.View
 {
     public abstract class Menu
     {
-        public abstract void showMenu();
+        public abstract void ShowMenu();
     }
 }

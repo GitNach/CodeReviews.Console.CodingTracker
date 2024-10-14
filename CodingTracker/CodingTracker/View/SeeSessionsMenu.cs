@@ -8,7 +8,7 @@ namespace CodingTracker.View
 {
     internal class SeeSessionsMenu : Menu
     {
-        public override void showMenu()
+        public override void ShowMenu()
         {
             Console.WriteLine("SeeSessionsMenu");
         }

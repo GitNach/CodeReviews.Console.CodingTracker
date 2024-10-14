@@ -11,7 +11,7 @@ namespace CodingTracker.Controller
     {
         public static void SwitchMenu(Menu menu)
         {
-            menu.showMenu();
+            menu.ShowMenu();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace CodingTracker.View
         }
 
 
-        public override void showMenu()
+        public override void ShowMenu()
         {
             string option = AnsiConsole.Prompt(
             new SelectionPrompt<string>()

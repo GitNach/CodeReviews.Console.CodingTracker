@@ -10,7 +10,7 @@ namespace CodingTracker.View
 {
     internal class StartSessionMenu: Menu
     {
-        public override void showMenu()
+        public override void ShowMenu()
         {
             string option = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
