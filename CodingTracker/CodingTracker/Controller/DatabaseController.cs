@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using CodingTracker.Model;
+using Dapper;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -27,5 +28,40 @@ namespace CodingTracker.Controller
             }
 
         }
+
+        public static void InsertSession(CodingSession session)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var insertCmd = @"INSERT INTO CodingSession (StartTime, EndTime, Duration)
+                                 VALUES (@StartTime, @EndTime, @Duration);";
+                connection.Execute(insertCmd, session);
+            }
+        }
+
+        public static List<CodingSession> GetSessions() 
+        { 
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.Query<CodingSession>("SELECT * FROM CodingSession;").ToList();
+            }
+        }
+
+        public static void UpdateSession(CodingSession session)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var updateCmd = @"UPDATE CodingSession 
+                                  SET StartTime = @StartTime, 
+                                      EndTime = @EndTime, 
+                                      Duration = @Duration 
+                                  WHERE Id = @Id;";
+                connection.Execute(updateCmd, session);
+            }
+        }
+
     }
 }
