@@ -1,4 +1,5 @@
 ﻿using CodingTracker.Controller;
+using CodingTracker.Model;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,50 @@ namespace CodingTracker.View
             switch (option)
             {
                 case "INSERT":
-                    Console.WriteLine("Insert method");
+                    
+                    AnsiConsole.Markup("[green]Inserting method\n[/]");
+                    var date = AnsiConsole.Prompt(
+                        new TextPrompt<string>("Starting date [yellow](yyyy-MM-dd)[/]:")
+                            .Validate(date =>
+                            {
+                                return DateTime.TryParseExact(date, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out _)
+                                    ? ValidationResult.Success()
+                                    : ValidationResult.Error("[red]Invalid date format![/]");
+                            }));
+                    var startTime = AnsiConsole.Prompt(
+                        new TextPrompt<string>("Starting time [yellow](HH:mm)[/]:")
+                            .Validate(time =>
+                            {
+                                return DateTime.TryParseExact(time, "HH:mm", null, System.Globalization.DateTimeStyles.None, out _)
+                                ? ValidationResult.Success()
+                                : ValidationResult.Error("[red]Invalid time format![/]");
+                            }));
+
+                    DateTime startDate = DateTime.Parse($"{date} {startTime}");
+
+           
+                    var endTime = AnsiConsole.Prompt(
+                        new TextPrompt<string>("Ending time [yellow](HH:mm)[/]:")
+                            .Validate(time =>
+                            {
+                                return DateTime.TryParseExact(time, "HH:mm", null, System.Globalization.DateTimeStyles.None, out _)
+                                ? ValidationResult.Success()
+                                : ValidationResult.Error("[red]Invalid time format![/]");
+                            }));
+
+                    DateTime endDate = DateTime.Parse($"{date} {endTime}");
+
+                    var newSession = new CodingSession(startDate, endDate);
+
+                    DatabaseController.InsertSession(newSession);
+                
+                    AnsiConsole.Markup("[green]Session was succesfully added!\n[/]");
+
+                    Console.WriteLine("Press Enter to go back to the main menu...");
+                    Console.ReadLine();
+                    Console.Clear();
+                    MenuController.SwitchMenu(new MainMenu());
+
                     break;
                 case "UPDATE":
                     Console.WriteLine("Update method");
