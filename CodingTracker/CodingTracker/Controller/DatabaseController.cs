@@ -11,7 +11,7 @@ namespace CodingTracker.Controller
 {
     public static class DatabaseController
     {
-        private static string _connectionString = $"Data Source={DATABASEFILE};Version=3;";
+        private static string _connectionString = $"Data Source={DATABASEFILE};";
         private const string DATABASEFILE = "CodingTrackerDatabase.sqlite";
 
         public static void CreateDatabase()
