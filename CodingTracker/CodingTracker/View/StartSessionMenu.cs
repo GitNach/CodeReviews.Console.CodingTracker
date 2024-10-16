@@ -26,12 +26,7 @@ namespace CodingTracker.View
                 
                 case "START":
                     Console.WriteLine("STARTING Session...");
-                    break;
-                case "PAUSE":
-                    Console.WriteLine("PAUSING Session...");
-                    break;
-                case "STOP":
-                    Console.WriteLine("STOPPING Session...");
+                    SessionController.StartSession().Wait();
                     break;
                 case "Back to Main Menu":
                     MenuController.SwitchMenu(new MainMenu());

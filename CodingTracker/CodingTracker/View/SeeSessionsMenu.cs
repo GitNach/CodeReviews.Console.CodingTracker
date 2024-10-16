@@ -30,7 +30,7 @@ namespace CodingTracker.View
             //columns
             foreach (CodingSession session in sessions) 
             {
-                table.AddRow($"{session.Id}", $"{session.StartTime}", $"{session.EndTime}", $"{session.Duration}");
+                table.AddRow($"{session.Id}", $"{session.StartTime}", $"{session.EndTime}", $"{session.Duration.ToString(@"hh\:mm\:ss")}");
                 
             }
             
