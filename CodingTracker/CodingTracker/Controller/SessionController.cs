@@ -31,8 +31,19 @@ namespace CodingTracker.Controller
 
             while (isRunning)
             {
-                Console.Clear(); 
-                Console.WriteLine($"Tiempo transcurrido: {stopwatch.Elapsed.ToString(@"hh\:mm\:ss")}");
+                Console.Clear();
+                //Console.WriteLine($"Tiempo transcurrido: {stopwatch.Elapsed.ToString(@"hh\:mm\:ss")}");
+                AnsiConsole.Write(
+                    new FigletText($"Time elapsed")
+                        .LeftJustified()
+                        .Color(Color.Yellow));
+
+                AnsiConsole.Write(
+                    new FigletText($"{stopwatch.Elapsed.ToString(@"hh\:mm\:ss")}")
+                        .LeftJustified()
+                        .Color(Color.Red));
+
+
                 AnsiConsole.Markup("[red]Pause[/] (Enter)");
                 AnsiConsole.Markup("\n[underline red]Stop[/] (Spacebar)");
 
