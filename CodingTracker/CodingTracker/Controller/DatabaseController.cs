@@ -40,8 +40,8 @@ namespace CodingTracker.Controller
             }
         }
 
-        public static List<CodingSession> GetSessions() 
-        { 
+        public static List<CodingSession> GetSessions()
+        {
             using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
@@ -63,5 +63,15 @@ namespace CodingTracker.Controller
             }
         }
 
+        public static void DeleteSession(int id)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var deleteCmd = "DELETE FROM CodingSession WHERE Id = @Id;";
+                connection.Execute(deleteCmd, new { Id = id });
+            }
+
+        }
     }
 }

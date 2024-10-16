@@ -64,7 +64,7 @@ namespace CodingTracker.View
                 
                     AnsiConsole.Markup("[green]Session was succesfully added!\n[/]");
 
-                    Console.WriteLine("Press Enter to go back to the main menu...");
+                    AnsiConsole.Markup("Press [green]Enter[/] to go back to the main menu...");
                     Console.ReadLine();
                     Console.Clear();
                     MenuController.SwitchMenu(new MainMenu());
