@@ -71,7 +71,68 @@ namespace CodingTracker.View
 
                     break;
                 case "UPDATE":
-                    Console.WriteLine("Update method");
+                    AnsiConsole.Markup("[yellow]Updating session\n[/]");
+                    int sessionId = AnsiConsole.Prompt(
+                        new TextPrompt<int>("Enter the [yellow]ID[/] of the coding session to modify:")
+                            .Validate(sessionId =>
+                            {
+                                if (!DatabaseController.DoesSessionExist(sessionId))
+                                {
+                                    return ValidationResult.Error("[red]Error:[/] The session with the given ID does not exist.");
+                                }
+                                    return ValidationResult.Success();
+                            })
+                    );
+
+                    var updateDate = AnsiConsole.Prompt(
+                        new TextPrompt<string>("Enter the new [yellow]starting date[/] (yyyy-MM-dd):")
+                            .Validate(updateDate =>
+                            {
+                                return DateTime.TryParseExact(updateDate, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out _)
+                                    ? ValidationResult.Success()
+                                    : ValidationResult.Error("[red]Invalid date format![/]");
+                            }));
+
+                    var updateStartTime = AnsiConsole.Prompt(
+                        new TextPrompt<string>("Enter the new [yellow]starting time[/] (HH:mm):")
+                            .Validate(time =>
+                            {
+                                return DateTime.TryParseExact(time, "HH:mm", null, System.Globalization.DateTimeStyles.None, out _)
+                                ? ValidationResult.Success()
+                                : ValidationResult.Error("[red]Invalid time format![/]");
+                            }));
+
+                    DateTime updateStartDate = DateTime.Parse($"{updateDate} {updateStartTime}");
+
+                    var updateEndTime = AnsiConsole.Prompt(
+                        new TextPrompt<string>("Enter the new [yellow]ending time[/] (HH:mm):")
+                            .Validate(time =>
+                            {
+                                return DateTime.TryParseExact(time, "HH:mm", null, System.Globalization.DateTimeStyles.None, out _)
+                                ? ValidationResult.Success()
+                                : ValidationResult.Error("[red]Invalid time format![/]");
+                            })
+                            .Validate(time =>
+                            {
+                                var startDateTime = DateTime.ParseExact($"{updateDate} {updateStartTime}", "yyyy-MM-dd HH:mm", null);
+                                var endDateTime = DateTime.ParseExact($"{updateDate} {time}", "yyyy-MM-dd HH:mm", null);
+                                return endDateTime > startDateTime
+                                    ? ValidationResult.Success()
+                                    : ValidationResult.Error("[red]Ending time cannot be before starting time![/]");
+                            }));
+
+                    DateTime updateEndDate = DateTime.Parse($"{updateDate} {updateEndTime}");
+
+                    var updatedSession = new CodingSession(sessionId, updateStartDate, updateEndDate);
+
+                    DatabaseController.UpdateSession(updatedSession);
+
+                    AnsiConsole.Markup("[green]Session was successfully updated!\n[/]");
+                    AnsiConsole.Markup("Press [green]Enter[/] to go back to the main menu...");
+                    Console.ReadLine();
+                    Console.Clear();
+                    MenuController.SwitchMenu(new MainMenu());
+
                     break;
                 case "DELETE":
                     Console.WriteLine("Delete method");

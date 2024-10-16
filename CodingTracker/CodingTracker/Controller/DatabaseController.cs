@@ -73,5 +73,16 @@ namespace CodingTracker.Controller
             }
 
         }
+
+        public static bool DoesSessionExist(int sessionId)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                string query = "SELECT COUNT(1) FROM CodingSession WHERE Id = @Id";
+                int count = connection.ExecuteScalar<int>(query, new { Id = sessionId });
+                return count > 0;
+            }
+
+        }
     }
 }
