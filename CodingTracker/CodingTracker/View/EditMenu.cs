@@ -135,7 +135,26 @@ namespace CodingTracker.View
 
                     break;
                 case "DELETE":
-                    Console.WriteLine("Delete method");
+                    AnsiConsole.Markup("[red]Deleting session\n[/]");
+                    int deleteId = AnsiConsole.Prompt(
+                        new TextPrompt<int>("Enter the [yellow]ID[/] of the coding session to [red]delete[/]:")
+                            .Validate(deleteId =>
+                            {
+                                if (!DatabaseController.DoesSessionExist(deleteId))
+                                {
+                                    return ValidationResult.Error("[red]Error:[/] The session with the given ID does not exist.");
+                                }
+                                return ValidationResult.Success();
+                            })
+                    );
+                    DatabaseController.DeleteSession(deleteId);
+
+                    AnsiConsole.Markup("[red]Session was successfully deleted!\n[/]");
+                    AnsiConsole.Markup("Press [green]Enter[/] to go back to the main menu...");
+                    Console.ReadLine();
+                    Console.Clear();
+                    MenuController.SwitchMenu(new MainMenu());
+
                     break;
                 case "Back to Main Menu":
                     MenuController.SwitchMenu(new MainMenu());
