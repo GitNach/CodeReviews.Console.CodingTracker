@@ -1,15 +1,10 @@
 ﻿using CodingTracker.Controller;
 using CodingTracker.Model;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodingTracker.View
 {
-    internal class EditMenu: Menu
+    internal class EditMenu : Menu
     {
         public override void ShowMenu()
         {
@@ -25,7 +20,7 @@ namespace CodingTracker.View
             switch (option)
             {
                 case "INSERT":
-                    
+
                     AnsiConsole.Markup("[green]Inserting method\n[/]");
                     var date = AnsiConsole.Prompt(
                         new TextPrompt<string>("Starting date [yellow](yyyy-MM-dd)[/]:")
@@ -46,7 +41,7 @@ namespace CodingTracker.View
 
                     DateTime startDate = DateTime.Parse($"{date} {startTime}");
 
-           
+
                     var endTime = AnsiConsole.Prompt(
                         new TextPrompt<string>("Ending time [yellow](HH:mm)[/]:")
                             .Validate(time =>
@@ -61,7 +56,7 @@ namespace CodingTracker.View
                     var newSession = new CodingSession(startDate, endDate);
 
                     DatabaseController.InsertSession(newSession);
-                
+
                     AnsiConsole.Markup("[green]Session was succesfully added!\n[/]");
 
                     AnsiConsole.Markup("Press [green]Enter[/] to go back to the main menu...");
@@ -80,7 +75,7 @@ namespace CodingTracker.View
                                 {
                                     return ValidationResult.Error("[red]Error:[/] The session with the given ID does not exist.");
                                 }
-                                    return ValidationResult.Success();
+                                return ValidationResult.Success();
                             })
                     );
 

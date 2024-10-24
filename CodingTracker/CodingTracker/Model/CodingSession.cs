@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodingTracker.Model
+﻿namespace CodingTracker.Model
 {
     public class CodingSession
     {
         public int Id { get; private set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public TimeSpan Duration { 
-            get 
-            { 
-                return EndTime - StartTime; 
-            } 
+        public TimeSpan Duration
+        {
+            get
+            {
+                return EndTime - StartTime;
+            }
         }
 
         public CodingSession(DateTime startTime, DateTime endTime)
         {
-            
+
             StartTime = startTime;
             EndTime = endTime;
-            
+
         }
 
         // Constructor that includes Id (useful when retrieving data from the database)

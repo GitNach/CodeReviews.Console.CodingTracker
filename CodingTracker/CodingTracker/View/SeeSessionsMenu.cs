@@ -1,11 +1,6 @@
 ﻿using CodingTracker.Controller;
 using CodingTracker.Model;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodingTracker.View
 {
@@ -30,13 +25,13 @@ namespace CodingTracker.View
             table.AddColumn("[bold underline springgreen1]Duration[/]");
 
             //columns
-            foreach (CodingSession session in sessions) 
+            foreach (CodingSession session in sessions)
             {
                 table.AddRow($"{session.Id}", $"{session.StartTime}", $"{session.EndTime}", $"{session.Duration.ToString(@"hh\:mm\:ss")}");
                 totalTime += session.Duration.TotalHours;
             }
-            
-            
+
+
             // Render the table to the console
             AnsiConsole.Write(table);
 
@@ -53,6 +48,6 @@ namespace CodingTracker.View
 
         }
 
-        
+
     }
 }

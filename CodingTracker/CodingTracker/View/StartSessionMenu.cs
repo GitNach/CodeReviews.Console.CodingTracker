@@ -1,14 +1,9 @@
 ﻿using CodingTracker.Controller;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodingTracker.View
 {
-    internal class StartSessionMenu: Menu
+    internal class StartSessionMenu : Menu
     {
         public override void ShowMenu()
         {
@@ -23,7 +18,7 @@ namespace CodingTracker.View
 
             switch (option)
             {
-                
+
                 case "START":
                     Console.WriteLine("STARTING Session...");
                     SessionController.StartSession().Wait();
