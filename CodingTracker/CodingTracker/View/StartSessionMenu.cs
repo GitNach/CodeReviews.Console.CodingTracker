@@ -13,7 +13,7 @@ namespace CodingTracker.View
             .PageSize(10)
             .MoreChoicesText("[grey](Move up and down to choose option)[/]")
             .AddChoices(new[] {
-            "START", "PAUSE", "STOP", "Back to Main Menu"
+            "START", "Back to Main Menu"
             }));
 
             switch (option)
