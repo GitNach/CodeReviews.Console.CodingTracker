@@ -1,12 +1,7 @@
 ﻿using CodingTracker.Model;
 using CodingTracker.View;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodingTracker.Controller
 {
@@ -18,16 +13,16 @@ namespace CodingTracker.Controller
 
         public static async Task StartSession()
         {
-            
+
             if (stopwatch == null)
             {
                 stopwatch = new Stopwatch();
             }
 
-            stopwatch.Start(); 
-            startTime = DateTime.Now; 
+            stopwatch.Start();
+            startTime = DateTime.Now;
             AnsiConsole.Markup("Session [green]started![/]");
-            isRunning = true; 
+            isRunning = true;
 
             while (isRunning)
             {
@@ -49,15 +44,15 @@ namespace CodingTracker.Controller
 
                 if (Console.KeyAvailable)
                 {
-                    var key = Console.ReadKey(true).Key; 
+                    var key = Console.ReadKey(true).Key;
 
-                    
+
                     if (key == ConsoleKey.Enter)
                     {
                         PauseSession();
                         AnsiConsole.Markup("\nSession [red]paused[/]! Press (Enter) to resume or (Space) to stop.");
-                        
-                        while (!isRunning) 
+
+                        while (!isRunning)
                         {
                             if (Console.KeyAvailable)
                             {
@@ -65,25 +60,25 @@ namespace CodingTracker.Controller
                                 if (pauseKey == ConsoleKey.Enter)
                                 {
                                     ResumeSession();
-                                    break; 
+                                    break;
                                 }
                                 else if (pauseKey == ConsoleKey.Spacebar)
                                 {
                                     StopSession();
-                                    break; 
+                                    break;
                                 }
                             }
                         }
                     }
-                    
+
                     else if (key == ConsoleKey.Spacebar)
                     {
                         StopSession();
-                        break; 
+                        break;
                     }
                 }
 
-                await Task.Delay(1000); 
+                await Task.Delay(1000);
             }
         }
 
@@ -91,8 +86,8 @@ namespace CodingTracker.Controller
         {
             if (!isRunning)
             {
-                stopwatch.Start(); 
-                isRunning = true; 
+                stopwatch.Start();
+                isRunning = true;
             }
         }
 
@@ -125,7 +120,7 @@ namespace CodingTracker.Controller
             Console.ReadLine();
             Console.Clear();
             MenuController.SwitchMenu(new MainMenu());
-            
+
         }
     }
 }
