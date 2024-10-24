@@ -17,6 +17,8 @@ namespace CodingTracker.View
 
             List<CodingSession> sessions = DatabaseController.GetSessions();
 
+            double totalTime = 0;
+
             // Create a table
             var table = new Table();
 
@@ -31,12 +33,18 @@ namespace CodingTracker.View
             foreach (CodingSession session in sessions) 
             {
                 table.AddRow($"{session.Id}", $"{session.StartTime}", $"{session.EndTime}", $"{session.Duration.ToString(@"hh\:mm\:ss")}");
-                
+                totalTime += session.Duration.TotalHours;
             }
             
             
             // Render the table to the console
             AnsiConsole.Write(table);
+
+            AnsiConsole.Write(new BarChart()
+                .Width(60)
+                .Label("[green bold underline]Total coding hours[/]")
+                .CenterLabel()
+                .AddItem("Hours", Math.Round(totalTime, 1), Color.Red));
 
             AnsiConsole.Markup("Press [green]Enter[/] to go back to the main menu...");
             Console.ReadLine();
@@ -44,5 +52,7 @@ namespace CodingTracker.View
             MenuController.SwitchMenu(new MainMenu());
 
         }
+
+        
     }
 }
