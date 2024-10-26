@@ -1,13 +1,16 @@
 ﻿using CodingTracker.Model;
 using Dapper;
+using System.Configuration;
 using Microsoft.Data.Sqlite;
 
 namespace CodingTracker.Controller
 {
     public static class DatabaseController
     {
-        private static string _connectionString = $"Data Source={DATABASEFILE};";
-        private const string DATABASEFILE = "CodingTrackerDatabase.sqlite";
+        private static readonly string _connectionString = ConfigurationManager.AppSettings["ConnectionString"]
+            ?? throw new InvalidOperationException("ConnectionString not found in app settings.");
+        private static readonly string _databaseFile = ConfigurationManager.AppSettings["DatabaseFile"]
+            ?? throw new InvalidOperationException("Database file not found in app settings.");
 
         public static void CreateDatabase()
         {

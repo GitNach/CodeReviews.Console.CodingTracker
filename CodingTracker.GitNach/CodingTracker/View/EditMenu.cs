@@ -53,6 +53,11 @@ namespace CodingTracker.View
 
                     DateTime endDate = DateTime.Parse($"{date} {endTime}");
 
+                    if (endDate < startDate)
+                    {
+                        endDate = endDate.AddDays(1);
+                    }
+
                     var newSession = new CodingSession(startDate, endDate);
 
                     DatabaseController.InsertSession(newSession);
